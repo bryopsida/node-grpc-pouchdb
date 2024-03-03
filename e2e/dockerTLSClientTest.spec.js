@@ -27,7 +27,7 @@ describe('dockerTLSE2E', () => {
     client: undefined
   }
   before(async () => {
-    const tag = 'ghcr.io/bryopsida/node-grpc-starter:ci'
+    const tag = 'ghcr.io/bryopsida/node-grpc-pouchdb:ci'
     const image = await GenericContainer.fromDockerfile('.').build(tag, {
       deleteOnExit: false
     })

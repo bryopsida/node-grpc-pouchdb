@@ -25,7 +25,7 @@ jobs:
     name: Build Image
     env:
         REGISTRY: ghcr.io/bryopsida
-        IMAGE_NAME: node-grpc-starter
+        IMAGE_NAME: node-grpc-pouchdb
     needs: 
       - test
     permissions:
