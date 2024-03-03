@@ -37,6 +37,7 @@
     "@grpc/reflection": "^1.0.1",
     "dotenv": "^16.4.4",
     "grpc-health-check": "^2.0.1",
-    "pino": "^8.19.0"
+    "pino": "^8.19.0",
+    "pouchdb": "^8.0.1"
   }
 }

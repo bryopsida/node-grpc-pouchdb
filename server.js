@@ -45,7 +45,7 @@ const protoPackage = grpc.loadPackageDefinition(packageDefinition)
 function buildServer () {
   const reflection = new ReflectionService(protoPackage)
   const server = new grpc.Server()
-  server.addService(protoPackage.grpc.examples.echo.Echo.service, {
+  server.addService(protoPackage.bryopsida.node - grpc.pouchdb.Cat, {
     unaryEcho,
     clientStreamingEcho,
     bidirectionalStreamingEcho,

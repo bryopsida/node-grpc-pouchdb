@@ -1,27 +1,43 @@
 syntax = "proto3";
 
-option go_package = "google.golang.org/grpc/examples/features/proto/echo";
+package bryopsida.node-grpc.pouchdb;
 
-package grpc.examples.echo;
+enum Color {
+  BLACK = 0;
+  BLUE = 1;
+  YELLOW = 2;
+  GREEN = 3;
+
+}
+
+message Cat {
+  string name = 1;
+  int32 age = 2;
+  Color color = 3;
+
+}
 
 // EchoRequest is the request for echo.
-message EchoRequest {
-  string message = 1;
+message GetCatRequest {
+  string catName = 1;
 }
 
 // EchoResponse is the response for echo.
-message EchoResponse {
-  string message = 1;
+message GetCatResponse {
+  Cat cat = 1;
 }
 
-// Echo is the echo service.
-service Echo {
-  // UnaryEcho is unary echo.
-  rpc UnaryEcho(EchoRequest) returns (EchoResponse) {}
-  // ServerStreamingEcho is server side streaming.
-  rpc ServerStreamingEcho(EchoRequest) returns (stream EchoResponse) {}
-  // ClientStreamingEcho is client side streaming.
-  rpc ClientStreamingEcho(stream EchoRequest) returns (EchoResponse) {}
-  // BidirectionalStreamingEcho is bidi streaming.
-  rpc BidirectionalStreamingEcho(stream EchoRequest) returns (stream EchoResponse) {}
+message CatJoinedHerd {
+  Cat cat = 1;
+}
+
+message HerdJoinRequest {
+  Cat cat = 1;
+}
+
+service Cat {
+  rpc GetCat(GetCatRequest) returns (GetCatResponse) {}
+  rpc WatchCatHerd() returns (stream CatJoinedHerd) {}
+  rpc HerdCats(stream HerdJoinRequest) returns () {}
+  rpc WatchAndHerdCats(stream HerdJoinRequest) returns (stream CatJoinedHerd) {}
 }

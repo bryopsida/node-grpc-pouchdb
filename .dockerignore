@@ -1,6 +1,8 @@
 *
 !services
 !services/*.js
+!repositories
+!repositories/*.js
 !*.js
 !package*.json
 !*.proto
