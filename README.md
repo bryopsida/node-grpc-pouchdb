@@ -1,8 +1,8 @@
-# node-grpc-starter
+# node-grpc-pouchdb
 
 ## What is this?
 
-A bare bones Node.JS gRPC starter template. It does not use typescript, it does not use any additional frameworks.
+A bare bones Node.JS gRPC starter template for a microserver using pouchdb. It does not use typescript, it does not use any additional frameworks.
 
 It provides boilerplate to start a gRPC microservice using an example echo service `.proto` file and dynamic bindings.
 

@@ -1,7 +1,7 @@
 {
-  "name": "grpc-starter",
+  "name": "grpc-pouchdb",
   "version": "0.1.0",
-  "description": "Bare bones Node.JS starter template for gRPC microservice",
+  "description": "Bare bones Node.JS starter template for gRPC microservice with PouchDB",
   "main": "main.js",
   "scripts": {
     "test": "node --test *.spec.js **/*.spec.js",
