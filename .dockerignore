@@ -1,0 +1,8 @@
+*
+!services
+!services/*.js
+!*.js
+!package*.json
+!*.proto
+*.spec.js
+**/*.spec.js
