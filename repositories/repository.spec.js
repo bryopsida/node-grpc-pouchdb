@@ -1,4 +1,5 @@
 const { describe, it } = require('node:test')
+const repository = require('./repository')
 const assert = require('node:assert')
 
 describe('repositories/repository.js', () => {

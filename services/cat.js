@@ -7,6 +7,22 @@ class CatService {
   constructor (catRepository) {
     this._repo = catRepository
   }
+
+  getCat () {
+
+  }
+
+  WatchCatHerd () {
+
+  }
+
+  herdCats () {
+
+  }
+
+  watchAndHerdCats () {
+
+  }
 }
 
 module.exports = {

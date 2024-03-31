@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package bryopsida.node-grpc.pouchdb;
+package bryopsida.nodegrpc.pouchdb;
 
 enum Color {
   BLACK = 0;
@@ -35,9 +35,12 @@ message HerdJoinRequest {
   Cat cat = 1;
 }
 
-service Cat {
+message Empty {
+}
+
+service CatService {
   rpc GetCat(GetCatRequest) returns (GetCatResponse) {}
-  rpc WatchCatHerd() returns (stream CatJoinedHerd) {}
-  rpc HerdCats(stream HerdJoinRequest) returns () {}
+  rpc WatchCatHerd(Empty) returns (stream CatJoinedHerd) {}
+  rpc HerdCats(stream HerdJoinRequest) returns (Empty) {}
   rpc WatchAndHerdCats(stream HerdJoinRequest) returns (stream CatJoinedHerd) {}
 }

@@ -4,8 +4,8 @@ const { ReflectionService } = require('@grpc/reflection')
 const { HealthImplementation } = require('grpc-health-check')
 const protoLoader = require('@grpc/proto-loader')
 const { resolve, join } = require('path')
-const { unaryEcho, bidirectionalStreamingEcho, serverStreamingEcho, clientStreamingEcho } = require('./services/echo')
 const getCredentials = require('./services/credential')
+const { CatService } = require('./services/cat')
 
 const logger = require('./services/logger')({
   name: 'server.js'
@@ -44,12 +44,13 @@ const protoPackage = grpc.loadPackageDefinition(packageDefinition)
  */
 function buildServer () {
   const reflection = new ReflectionService(protoPackage)
+  const catService = new CatService(null)
   const server = new grpc.Server()
-  server.addService(protoPackage.bryopsida.node - grpc.pouchdb.Cat, {
-    unaryEcho,
-    clientStreamingEcho,
-    bidirectionalStreamingEcho,
-    serverStreamingEcho
+  server.addService(protoPackage.bryopsida.nodegrpc.pouchdb.CatService.service, {
+    getCat: catService.getCat,
+    watchCatHerd: catService.watchCatHerd,
+    herdCats: catService.herdCats,
+    watchAndHerdCats: catService.watchAndHerdCats
   })
   healthImpl.addToServer(server)
   reflection.addToServer(server)

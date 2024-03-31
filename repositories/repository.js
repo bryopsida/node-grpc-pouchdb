@@ -22,6 +22,7 @@ const PouchDB = require('pouchdb')
  * @property {string?} sourceUrl optional url for source database that should replicate to the target database, when not provided it assumes the source
  *                               is the database housed in the repository. This can be used to replicate changes from a remote database to this local database.
  * @property {string} targetUrl url that replication requests will be sent to, required
+ * @property {boolean?} sync optional flag indicating it's a bidirectional replication, this is exclusive of specifying sourceUrl
  * @property {boolean?} live live flag will be set in replcation options, defaults true
  * @property {boolean?} retry retry flag will be set in replication options, defaults true
  * @property {string?} username optional username for credentials to remote target
@@ -61,16 +62,44 @@ class Repository {
       },
       ...opts.adapterOptions
     })
+    this.replications = []
     this.addReplicationRules(opts.replicationTargets)
   }
 
   /**
      * Add replication rules
-     * @param {Array<ReplicationFilterOptions>?} replicationTargets set of replication rules/targets
+     * @param {Array<ReplicationTargets>?} replicationTargets set of replication rules/targets
      */
   addReplicationRules (replicationTargets) {
     if (!replicationTargets) return
-    // TODO: wire replication rules
+    for (const rule of replicationTargets) {
+      if (rule.targetUrl == null) throw new Error('Replication rule provided without a targetUrl')
+      if (rule.sync == true && rule.sourceUrl != null) throw new Error('Replication rule with a sourceUrl and sync: true is invalid')
+      if (rule.sync) {
+        this.replications.push(this.attachReplicationListeners(this.db.sync()))
+      } else {
+        const source = rule.sourceUrl ?? this.db
+        this.replications.push(this.attachReplicationListeners(PouchDB.replicate(source, rule.targetUrl, this.buildReplicationOptions(rule))))
+      }
+    }
+  }
+
+  /**
+   *
+   */
+  attachReplicationListeners (replication) {
+    return replication
+  }
+
+  /**
+   *
+   * @param {ReplicationTargets} targetRule
+   */
+  buildReplicationOptions (targetRule) {
+    return {
+      live: targetRule.live,
+      retry: targetRule.retry
+    }
   }
 }
 
